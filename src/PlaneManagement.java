@@ -1,6 +1,6 @@
 import java.util.*;
 public class PlaneManagement {
-    static String[][] seatReservation = {{"X","O","O","O","O","O","O","O","O","O","O","O","O","O"},{"O","O","O","O","O","O","O","O","O","O","O","O"},{"O","O","O","O","O","O","O","O","O","O","O","O"},{"O","O","O","O","O","O","O","O","O","O","O","O","O","O"}};
+    static String[][] seatReservation = {{"X","X","X","X","X","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X","X","X"}};
 
 
     public static void main(String[] args){
@@ -252,7 +252,7 @@ public class PlaneManagement {
                 }
             }
             else if (((row==1)||(row==2)) && (notFound)) {
-                for(int seatNo=0;seatNo<14;seatNo++) {
+                for(int seatNo=0;seatNo<12;seatNo++) {
                     if (!(seatReservation[row][seatNo].equals("X"))) {
                         int printSeatNo = seatNo+1;
                         switch(row){
