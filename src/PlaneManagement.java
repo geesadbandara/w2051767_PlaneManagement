@@ -1,6 +1,6 @@
 import java.util.*;
 public class PlaneManagement {
-    static String[][] seatReservation = {{"X","X","X","X","X","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X","X","X"}};
+    static String[][] seatReservation = {{"X","O","X","X","O","X","X","X","X","X","X","X","X","X"},{"O","O","O","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X","X","X"}};
 
 
     public static void main(String[] args){
@@ -36,6 +36,9 @@ public class PlaneManagement {
                  break;
              case 3:
                  find_first_available();
+                 break;
+             case 4:
+                 show_seating_plan();
                  break;
 
              case 0:
@@ -278,6 +281,24 @@ public class PlaneManagement {
 
 
         }
+    }
+    public static void show_seating_plan(){
+        int[] rowChange = {0,1,2,3};
+        for(int row: rowChange) {
+            if (((row == 0) || (row == 3))) {
+                for (int seatNo = 0; seatNo < 14; seatNo++) {
+                    System.out.print(seatReservation[row][seatNo]);
+                }
+                System.out.println("");
+            } else if (((row == 1) || (row == 2))) {
+                for (int seatNo = 0; seatNo < 12; seatNo++) {
+                    System.out.print(seatReservation[row][seatNo]);
+                }
+                System.out.println("");
+
+            }
+        }
+
     }
 
 }
