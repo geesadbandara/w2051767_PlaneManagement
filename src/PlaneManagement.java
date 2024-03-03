@@ -1,6 +1,6 @@
 import java.util.*;
 public class PlaneManagement {
-    static String[][] seatReservation = {{"X","O","X","X","O","X","X","X","X","X","X","X","X","X"},{"O","O","O","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X","X","X"}};
+    static String[][] seatReservation = {{"X","O","X","X","O","X","X","X","X","X","X","X","X","O"},{"O","O","O","X","X","X","X","X","X","X","X","O"},{"X","X","X","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X","X","X"}};
 
 
     public static void main(String[] args){
@@ -54,6 +54,7 @@ public class PlaneManagement {
     public static void buy_seat(){
         try{
             Scanner buySeatIn = new Scanner(System.in);
+            double price=0;
 
             System.out.println("Enter the row letter :");
             String rowLetter = buySeatIn.nextLine().toUpperCase();
@@ -61,6 +62,16 @@ public class PlaneManagement {
             System.out.println("Enter the seat number :");
 
             int seatNumber = buySeatIn.nextInt();
+
+            if(seatNumber<6){
+                price=200;
+            } else if (seatNumber<10) {
+                price=150;
+            }
+            else if(seatNumber<15){
+                price=180;
+            }
+
             int arrayNum1;
             if(rowLetter.equals("A") || rowLetter.equals("B") || rowLetter.equals("C") || rowLetter.equals("D")){
                 switch (rowLetter){
@@ -68,8 +79,12 @@ public class PlaneManagement {
                         try {
                             arrayNum1 = 0;
                             if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
+                                //String nameIn,surnameIn,emailIn;
                                 System.out.println("Available");
                                 seatReservation[arrayNum1][seatNumber - 1] = "X";
+                                setTicketDetails(price,rowLetter,seatNumber);
+
+
                                 //System.out.println(seatReservation[arrayNum1][seatNumber - 1]);
 
                             } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
@@ -87,6 +102,7 @@ public class PlaneManagement {
                             if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
                                 System.out.println("Available");
                                 seatReservation[arrayNum1][seatNumber - 1] = "X";
+                                setTicketDetails(price,rowLetter,seatNumber);
 
                             } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
                                 System.out.println("Not Available");
@@ -102,6 +118,8 @@ public class PlaneManagement {
                             if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
                                 System.out.println("Available");
                                 seatReservation[arrayNum1][seatNumber - 1] = "X";
+                                setTicketDetails(price,rowLetter,seatNumber);
+
                             } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
                                 System.out.println("Not Available");
                             }
@@ -116,6 +134,7 @@ public class PlaneManagement {
                             if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
                                 System.out.println("Available");
                                 seatReservation[arrayNum1][seatNumber - 1] = "X";
+                                setTicketDetails(price,rowLetter,seatNumber);
 
                             } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
                                 System.out.println("Not Available");
@@ -298,6 +317,74 @@ public class PlaneManagement {
 
             }
         }
+
+    }
+    public static void setTicketDetails(double setPrice,String setRow, int setSeatN0){
+        String nameIn,surnameIn,emailIn;
+        Scanner userIn = new Scanner(System.in);
+        while(true){
+            try{
+                System.out.println("Enter the name: ");
+                nameIn  = userIn.next();
+                //String name = new String(nameIn);
+                if(nameIn.matches("[a-zA-Z]+")){
+                    System.out.println("Valid");
+                    break;
+                }
+                else{
+                    System.out.println("Invalid name !");
+                    continue;
+                }
+            }
+            catch(InputMismatchException e){
+                System.out.println("Invalid Name ! ");
+                continue;
+            }
+
+        }
+        while(true){
+            try{
+                System.out.println("Enter the surname: ");
+                surnameIn  = userIn.next();
+                //String name = new String(nameIn);
+                if(surnameIn.matches("[a-zA-Z]+")){
+                    System.out.println("Valid");
+                    break;
+                }
+                else{
+                    System.out.println("Invalid surname !");
+                    continue;
+                }
+            }
+            catch(InputMismatchException e){
+                System.out.println("Invalid surname ! ");
+                continue;
+            }
+
+        }
+        while(true){
+            try{
+                System.out.println("Enter the email address: ");
+                emailIn  = userIn.next();
+                //String name = new String(nameIn);
+                if((emailIn.contains("@")) && (emailIn.contains(".")) || ((emailIn.matches("[a-zA-Z]+")) || (emailIn.matches("[0-9]+")))){
+                    System.out.println("Valid");
+                    break;
+                }
+                else{
+                    System.out.println("Invalid email !");
+                    continue;
+                }
+            }
+            catch(InputMismatchException e){
+                System.out.println("Invalid surname ! ");
+                continue;
+            }
+
+        }
+        //System.out.println(price);
+        Person ticketOwner = new Person(nameIn,surnameIn,emailIn);
+        Ticket buyTicket = new Ticket(setRow,setSeatN0,setPrice,ticketOwner);
 
     }
 
