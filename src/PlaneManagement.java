@@ -1,7 +1,10 @@
 import java.util.*;
 public class PlaneManagement {
-    static String[][] seatReservation = {{"O","O","O","O","O","O","O","O","O","O","O","O","O","O"},{"O","O","O","X","X","X","X","X","X","X","X","O"},{"X","X","X","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X","X","X"}};
-
+    protected static String[][] seatReservation = {{"X","O","O","O","O","O","O","O","O","O","O","O","O","O"},{"O","O","O","X","X","X","X","X","X","X","X","O"},{"X","X","X","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X","X","X"}};
+    protected static Ticket[] ticketArrayA = new Ticket[14];
+    protected static Ticket[] ticketArrayB = new Ticket[12];
+    protected static Ticket[] ticketArrayC = new Ticket[12];
+    protected static Ticket[] ticketArrayD = new Ticket[14];
 
     public static void main(String[] args){
         Scanner userInput = new Scanner(System.in);
@@ -10,7 +13,7 @@ public class PlaneManagement {
 
 
         int userSelection;
-        while(status==true){
+        while(status){ //status=true
 
         System.out.println("Welcome to Plane Management System");
         System.out.println("*****************************************************");
@@ -76,73 +79,21 @@ public class PlaneManagement {
             if(rowLetter.equals("A") || rowLetter.equals("B") || rowLetter.equals("C") || rowLetter.equals("D")){
                 switch (rowLetter){
                     case "A":
-                        try {
-                            arrayNum1 = 0;
-                            if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
-                                //String nameIn,surnameIn,emailIn;
-                                System.out.println("Available");
-                                seatReservation[arrayNum1][seatNumber - 1] = "X";
-                                setTicketDetails(price,rowLetter,seatNumber);
-
-
-                                //System.out.println(seatReservation[arrayNum1][seatNumber - 1]);
-
-                            } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
-                                System.out.println("Not Available");
-                            }
-                        }
-                        catch (ArrayIndexOutOfBoundsException e){
-                            System.out.println("Invalid Seat Number");
-                        }
+                        arrayNum1 = 0;
+                        checkSeatBuy(arrayNum1,seatNumber,price,rowLetter);
                         break;
 
                     case "B":
-                        try {
-                            arrayNum1 = 1;
-                            if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
-                                System.out.println("Available");
-                                seatReservation[arrayNum1][seatNumber - 1] = "X";
-                                setTicketDetails(price,rowLetter,seatNumber);
-
-                            } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
-                                System.out.println("Not Available");
-                            }
-                        }
-                        catch (ArrayIndexOutOfBoundsException e){
-                            System.out.println("Invalid Seat Number");
-                        }
+                        arrayNum1 = 1;
+                        checkSeatBuy(arrayNum1,seatNumber,price,rowLetter);
                         break;
                     case "C":
-                        try {
-                            arrayNum1 = 2;
-                            if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
-                                System.out.println("Available");
-                                seatReservation[arrayNum1][seatNumber - 1] = "X";
-                                setTicketDetails(price,rowLetter,seatNumber);
-
-                            } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
-                                System.out.println("Not Available");
-                            }
-                        }
-                        catch (ArrayIndexOutOfBoundsException e){
-                            System.out.println("Invalid Seat Number");
-                        }
+                        arrayNum1 = 2;
+                        checkSeatBuy(arrayNum1,seatNumber,price,rowLetter);
                         break;
                     case "D":
-                        try {
-                            arrayNum1 = 3;
-                            if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
-                                System.out.println("Available");
-                                seatReservation[arrayNum1][seatNumber - 1] = "X";
-                                setTicketDetails(price,rowLetter,seatNumber);
-
-                            } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
-                                System.out.println("Not Available");
-                            }
-                        }
-                        catch (ArrayIndexOutOfBoundsException e){
-                            System.out.println("Invalid Seat Number");
-                        }
+                        arrayNum1 = 3;
+                        checkSeatBuy(arrayNum1,seatNumber,price,rowLetter);
                         break;
 
                 }
@@ -175,62 +126,21 @@ public class PlaneManagement {
             if(rowLetter.equals("A") || rowLetter.equals("B") || rowLetter.equals("C") || rowLetter.equals("D")){
                 switch (rowLetter){
                     case "A":
-                        try {
-                            arrayNum1 = 0;
-                            if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
-                                System.out.println("Available");
-
-                            } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
-                                System.out.println("Not Available");
-                                seatReservation[arrayNum1][seatNumber - 1] = "O";
-                            }
-                        }
-                        catch (ArrayIndexOutOfBoundsException e){
-                            System.out.println("Invalid Seat Number");
-                        }
+                        arrayNum1 = 0;
+                        checkSeatCancel(arrayNum1,seatNumber,rowLetter);
                         break;
 
                     case "B":
-                        try {
-                            arrayNum1 = 1;
-                            if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
-                                System.out.println("Available");
-                            } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
-                                System.out.println("Not Available");
-                                seatReservation[arrayNum1][seatNumber - 1] = "O";
-                            }
-                        }
-                        catch (ArrayIndexOutOfBoundsException e){
-                            System.out.println("Invalid Seat Number");
-                        }
+                        arrayNum1 = 1;
+                        checkSeatCancel(arrayNum1,seatNumber,rowLetter);
                         break;
                     case "C":
-                        try {
-                            arrayNum1 = 2;
-                            if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
-                                System.out.println("Available");
-                            } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
-                                System.out.println("Not Available");
-                                seatReservation[arrayNum1][seatNumber - 1] = "O";
-                            }
-                        }
-                        catch (ArrayIndexOutOfBoundsException e){
-                            System.out.println("Invalid Seat Number");
-                        }
+                        arrayNum1 = 2;
+                        checkSeatCancel(arrayNum1,seatNumber,rowLetter);
                         break;
                     case "D":
-                        try {
-                            arrayNum1 = 3;
-                            if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
-                                System.out.println("Available");
-                            } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
-                                System.out.println("Not Available");
-                                seatReservation[arrayNum1][seatNumber - 1] = "O";
-                            }
-                        }
-                        catch (ArrayIndexOutOfBoundsException e){
-                            System.out.println("Invalid Seat Number");
-                        }
+                        arrayNum1 = 3;
+                        checkSeatCancel(arrayNum1,seatNumber,rowLetter);
                         break;
 
                 }
@@ -385,10 +295,7 @@ public class PlaneManagement {
         //System.out.println(price);
         Person ticketOwner = new Person(nameIn,surnameIn,emailIn);
         Ticket buyTicket = new Ticket(setRow,setSeatNo,setPrice,ticketOwner);
-        Ticket[] ticketArrayA = new Ticket[14];
-        Ticket[] ticketArrayB = new Ticket[12];
-        Ticket[] ticketArrayC = new Ticket[12];
-        Ticket[] ticketArrayD = new Ticket[14];
+
         int arrayValue = setSeatNo - 1;
         switch (setRow){
             case "A":
@@ -406,6 +313,62 @@ public class PlaneManagement {
         }
         //System.out.println(ticketArrayA[arrayValue].getTicketOwner().getEmail());
 
+
+    }
+    public static void checkSeatBuy(int arrayNum1,int seatNumber,double price,String rowLetter){
+        try {
+
+            if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
+                //String nameIn,surnameIn,emailIn;
+                System.out.println("Available");
+                seatReservation[arrayNum1][seatNumber - 1] = "X";
+                setTicketDetails(price,rowLetter,seatNumber);
+
+
+                //System.out.println(seatReservation[arrayNum1][seatNumber - 1]);
+
+            } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
+                System.out.println("Not Available");
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Invalid Seat Number");
+        }
+
+    }
+    public static void checkSeatCancel(int arrayNum1,int seatNumber,String rowLetter){
+        try {
+
+            if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
+                System.out.println("Available");
+
+            } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
+                System.out.println("Not Available");
+                seatReservation[arrayNum1][seatNumber - 1] = "O";
+                int arrayValue = seatNumber - 1;
+                Ticket cancelTicket=new Ticket(null,0,0,null);
+                switch (rowLetter){
+                    case "A":
+                        ticketArrayA[arrayValue] = cancelTicket;
+                        break;
+                    case "B":
+                        ticketArrayB[arrayValue] = cancelTicket;
+                        break;
+                    case "C":
+                        ticketArrayC[arrayValue] = cancelTicket;
+                        break;
+                    case "D":
+                        ticketArrayD[arrayValue] = cancelTicket;
+                        break;
+                }
+                //System.out.println(ticketArrayD[arrayValue].getPrice());
+
+
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Invalid Seat Number");
+        }
 
     }
 
