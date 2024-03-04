@@ -1,6 +1,6 @@
 import java.util.*;
 public class PlaneManagement {
-    static String[][] seatReservation = {{"X","O","X","X","O","X","X","X","X","X","X","X","X","O"},{"O","O","O","X","X","X","X","X","X","X","X","O"},{"X","X","X","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X","X","X"}};
+    static String[][] seatReservation = {{"O","O","O","O","O","O","O","O","O","O","O","O","O","O"},{"O","O","O","X","X","X","X","X","X","X","X","O"},{"X","X","X","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X","X","X"}};
 
 
     public static void main(String[] args){
@@ -319,7 +319,7 @@ public class PlaneManagement {
         }
 
     }
-    public static void setTicketDetails(double setPrice,String setRow, int setSeatN0){
+    public static void setTicketDetails(double setPrice,String setRow, int setSeatNo){
         String nameIn,surnameIn,emailIn;
         Scanner userIn = new Scanner(System.in);
         while(true){
@@ -384,7 +384,28 @@ public class PlaneManagement {
         }
         //System.out.println(price);
         Person ticketOwner = new Person(nameIn,surnameIn,emailIn);
-        Ticket buyTicket = new Ticket(setRow,setSeatN0,setPrice,ticketOwner);
+        Ticket buyTicket = new Ticket(setRow,setSeatNo,setPrice,ticketOwner);
+        Ticket[] ticketArrayA = new Ticket[14];
+        Ticket[] ticketArrayB = new Ticket[12];
+        Ticket[] ticketArrayC = new Ticket[12];
+        Ticket[] ticketArrayD = new Ticket[14];
+        int arrayValue = setSeatNo - 1;
+        switch (setRow){
+            case "A":
+                ticketArrayA[arrayValue] = buyTicket;
+                break;
+            case "B":
+                ticketArrayB[arrayValue] = buyTicket;
+                break;
+            case "C":
+                ticketArrayC[arrayValue] = buyTicket;
+                break;
+            case "D":
+                ticketArrayD[arrayValue] = buyTicket;
+                break;
+        }
+        //System.out.println(ticketArrayA[arrayValue].getTicketOwner().getEmail());
+
 
     }
 
