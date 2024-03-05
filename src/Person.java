@@ -31,7 +31,7 @@ public class Person {
     }
     public void showPersonDetails(){
         System.out.println("Name:"+getName());
-        System.out.println("Name:"+getSurname());
-        System.out.println("Name:"+getEmail());
+        System.out.println("Surname:"+getSurname());
+        System.out.println("Email:"+getEmail());
     }
 }

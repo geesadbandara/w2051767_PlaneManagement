@@ -43,6 +43,9 @@ public class PlaneManagement {
              case 4:
                  show_seating_plan();
                  break;
+             case 5:
+                 print_ticket_info();
+                 break;
 
              case 0:
                  System.out.println("Quit");
@@ -368,6 +371,44 @@ public class PlaneManagement {
         }
         catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Invalid Seat Number");
+        }
+
+    }
+    public static void print_ticket_info(){
+        int[] rowChange = {0,1,2,3};
+        double totalPrice = 0;
+        for(int rowVal:rowChange){
+            if(rowVal==0){
+                printTicketSearch(13,ticketArrayA,totalPrice);
+
+            } else if (rowVal==1) {
+                printTicketSearch(11,ticketArrayB,totalPrice);
+
+            }else if (rowVal==2) {
+                printTicketSearch(11,ticketArrayC,totalPrice);
+
+            }else{
+                printTicketSearch(13,ticketArrayD,totalPrice);
+            }
+        }
+        System.out.println("Total Price:" +totalPrice);
+
+    }
+    public static void printTicketSearch(int count,Ticket[] ticketArray,double totalPrice){
+        int arrayValue=-1;
+        while(arrayValue<count){
+            arrayValue++;
+            try{
+                System.out.println("Seat: "+ticketArray[arrayValue].getRow() + ticketArray[arrayValue].getSeatNo());
+                ticketArray[arrayValue].getTicketOwner().showPersonDetails();
+                System.out.println("Price: Є."+ticketArray[arrayValue].getPrice());
+                System.out.println("*****************************************");
+                totalPrice = totalPrice + ticketArray[arrayValue].getPrice();
+
+            }
+            catch (Exception e){
+                continue;
+            }
         }
 
     }
