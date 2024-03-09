@@ -379,22 +379,22 @@ public class PlaneManagement {
         double totalPrice = 0;
         for(int rowVal:rowChange){
             if(rowVal==0){
-                printTicketSearch(13,ticketArrayA,totalPrice);
+                totalPrice = printTicketSearch(13,ticketArrayA,totalPrice);
 
             } else if (rowVal==1) {
-                printTicketSearch(11,ticketArrayB,totalPrice);
+                totalPrice = printTicketSearch(11,ticketArrayB,totalPrice);
 
             }else if (rowVal==2) {
-                printTicketSearch(11,ticketArrayC,totalPrice);
+                totalPrice = printTicketSearch(11,ticketArrayC,totalPrice);
 
             }else{
-                printTicketSearch(13,ticketArrayD,totalPrice);
+                totalPrice = printTicketSearch(13,ticketArrayD,totalPrice);
             }
         }
         System.out.println("Total Price:" +totalPrice);
 
     }
-    public static void printTicketSearch(int count,Ticket[] ticketArray,double totalPrice){
+    public static double printTicketSearch(int count,Ticket[] ticketArray,double totalPrice){
         int arrayValue=-1;
         while(arrayValue<count){
             arrayValue++;
@@ -405,11 +405,13 @@ public class PlaneManagement {
                 System.out.println("*****************************************");
                 totalPrice = totalPrice + ticketArray[arrayValue].getPrice();
 
+
             }
             catch (Exception e){
                 continue;
             }
         }
+        return totalPrice;
 
     }
 
