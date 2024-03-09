@@ -46,7 +46,9 @@ public class PlaneManagement {
              case 5:
                  print_ticket_info();
                  break;
-
+             case 6:
+                 search_ticket();
+                 break;
              case 0:
                  System.out.println("Quit");
                  status=false;
@@ -412,6 +414,104 @@ public class PlaneManagement {
             }
         }
         return totalPrice;
+
+    }
+    public static void search_ticket(){
+        try{
+            Scanner buySeatIn = new Scanner(System.in);
+            double price=0;
+
+            System.out.println("Enter the row letter :");
+            String rowLetter = buySeatIn.nextLine().toUpperCase();
+
+            System.out.println("Enter the seat number :");
+
+            int seatNumber = buySeatIn.nextInt();
+
+
+            int arrayNum1;
+            if(rowLetter.equals("A") || rowLetter.equals("B") || rowLetter.equals("C") || rowLetter.equals("D")){
+                switch (rowLetter){
+                    case "A":
+                        arrayNum1 = 0;
+                        checkSeat(arrayNum1,seatNumber,rowLetter);
+                        break;
+
+                    case "B":
+                        arrayNum1 = 1;
+                        checkSeat(arrayNum1,seatNumber,rowLetter);
+                        break;
+                    case "C":
+                        arrayNum1 = 2;
+                        checkSeat(arrayNum1,seatNumber,rowLetter);
+                        break;
+                    case "D":
+                        arrayNum1 = 3;
+                        checkSeat(arrayNum1,seatNumber,rowLetter);
+                        break;
+
+                }
+            }
+            else{
+                System.out.println("Enter a valid row letter!  (A/B/C/D)");
+            }
+
+
+        }
+        catch (InputMismatchException e){
+            System.out.println("First Input the Row Letter,It should be a character (A/B/C/D)");
+            System.out.println("Then Input the Seat Number,It should be a integer");
+        }
+
+    }
+    public static void checkSeat(int arrayNum1,int seatNumber,String rowLetter){
+        try {
+
+            if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
+                //String nameIn,surnameIn,emailIn;
+                System.out.println("Available");
+
+                //System.out.println(seatReservation[arrayNum1][seatNumber - 1]);
+
+            } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
+                System.out.println("Not Available");
+                int arrayValue = seatNumber - 1;
+
+                switch (rowLetter){
+                    case "A":
+                        printSingleTicket(ticketArrayA,arrayValue);
+                        break;
+                    case "B":
+                        printSingleTicket(ticketArrayB,arrayValue);
+                        break;
+                    case "C":
+                        printSingleTicket(ticketArrayC,arrayValue);
+                        break;
+                    case "D":
+                        printSingleTicket(ticketArrayD,arrayValue);
+                        break;
+                }
+
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Invalid Seat Number");
+        }
+
+    }
+    public static void printSingleTicket(Ticket[] ticketArray,int arrayValue){
+        try{
+            System.out.println("*****************************************");
+            System.out.println("Seat: "+ticketArray[arrayValue].getRow() + ticketArray[arrayValue].getSeatNo());
+            ticketArray[arrayValue].getTicketOwner().showPersonDetails();
+            System.out.println("Price: Є."+ticketArray[arrayValue].getPrice());
+            System.out.println("*****************************************");
+        }
+        catch (NullPointerException e){
+            System.out.println("Empty Ticket");
+        }
+
+
 
     }
 
