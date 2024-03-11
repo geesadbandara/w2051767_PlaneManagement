@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 public class PlaneManagement {
     protected static String[][] seatReservation = {{"X","O","O","O","O","O","O","O","O","O","O","O","O","O"},{"O","O","O","X","X","X","X","X","X","X","X","O"},{"X","X","X","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X","X","X"}};
     protected static Ticket[] ticketArrayA = new Ticket[14];
@@ -81,24 +82,31 @@ public class PlaneManagement {
             }
 
             int arrayNum1;
+            String seatNoStr = String.valueOf(seatNumber);
+            String fileName = rowLetter + seatNoStr +  ".txt";
             if(rowLetter.equals("A") || rowLetter.equals("B") || rowLetter.equals("C") || rowLetter.equals("D")){
                 switch (rowLetter){
                     case "A":
                         arrayNum1 = 0;
+
                         checkSeatBuy(arrayNum1,seatNumber,price,rowLetter);
+                        addTicketFile(fileName,ticketArrayA,seatNumber);
                         break;
 
                     case "B":
                         arrayNum1 = 1;
                         checkSeatBuy(arrayNum1,seatNumber,price,rowLetter);
+                        addTicketFile(fileName,ticketArrayB,seatNumber);
                         break;
                     case "C":
                         arrayNum1 = 2;
                         checkSeatBuy(arrayNum1,seatNumber,price,rowLetter);
+                        addTicketFile(fileName,ticketArrayC,seatNumber);
                         break;
                     case "D":
                         arrayNum1 = 3;
                         checkSeatBuy(arrayNum1,seatNumber,price,rowLetter);
+                        addTicketFile(fileName,ticketArrayD,seatNumber);
                         break;
 
                 }
@@ -512,6 +520,24 @@ public class PlaneManagement {
         }
 
 
+
+    }
+    public static void addTicketFile(String fileName,Ticket[] ticketArray,int seatNo){
+        try{
+            File ticketFile = new File(fileName);
+            FileWriter ticketWriter = new FileWriter(fileName);
+
+                ticketWriter.write("Seat: "+ticketArray[seatNo-1].getRow()+ticketArray[seatNo-1].getSeatNo());
+                ticketWriter.write("\nName: "+ticketArray[seatNo-1].getTicketOwner().getName());
+                ticketWriter.write("\nSurname: "+ticketArray[seatNo-1].getTicketOwner().getSurname());
+                ticketWriter.write("\nEmail: "+ticketArray[seatNo-1].getTicketOwner().getEmail());
+                ticketWriter.write("\nPrice: "+ticketArray[seatNo-1].getPrice());
+                ticketWriter.close();
+        }
+        catch(IOException e){
+            System.out.println("Error");
+
+        }
 
     }
 
