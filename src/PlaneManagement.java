@@ -20,7 +20,7 @@ public class PlaneManagement {
         System.out.println("*****************************************************");
         System.out.println("*                 MENU OPTION                       *");
         System.out.println("*****************************************************");
-        String[] menuOptions = {"1)Buy Seat","2)Cancel a Seat","3)Find first available seat","4)Show meeting seat","5)Print ticket information and total sales","6)Search ticket","0)Buy Seat"};
+        String[] menuOptions = {"1)Buy Seat","2)Cancel a Seat","3)Find first available seat","4)Show seating plan","5)Print ticket information and total sales","6)Search ticket","0)Buy Seat"};
         for(String menu:menuOptions){
             System.out.println("        " +menu);
         }
@@ -136,11 +136,14 @@ public class PlaneManagement {
 
             int seatNumber = cancelSeatIn.nextInt();
             int arrayNum1;
+            String seatNoStr = String.valueOf(seatNumber);
+            String fileName = rowLetter + seatNoStr +  ".txt";
             if(rowLetter.equals("A") || rowLetter.equals("B") || rowLetter.equals("C") || rowLetter.equals("D")){
                 switch (rowLetter){
                     case "A":
                         arrayNum1 = 0;
                         checkSeatCancel(arrayNum1,seatNumber,rowLetter);
+                        deleteTicketFile(fileName);
                         break;
 
                     case "B":
@@ -535,6 +538,17 @@ public class PlaneManagement {
                 ticketWriter.close();
         }
         catch(IOException e){
+            System.out.println("Error");
+
+        }
+
+    }
+    public static void deleteTicketFile(String fileName){
+        try{
+            File ticketFile = new File(fileName);
+            ticketFile.delete();
+        }
+        catch(Exception e){
             System.out.println("Error");
 
         }
