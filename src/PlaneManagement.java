@@ -68,45 +68,59 @@ public class PlaneManagement {
             System.out.println("Enter the row letter :");
             String rowLetter = buySeatIn.nextLine().toUpperCase();
 
-            System.out.println("Enter the seat number :");
+            //System.out.println("Enter the seat number :");
 
-            int seatNumber = buySeatIn.nextInt();
+            //int seatNumber = buySeatIn.nextInt();
 
-            if(seatNumber<6){
+            /*if(seatNumber<6){
                 price=200;
             } else if (seatNumber<10) {
                 price=150;
             }
             else if(seatNumber<15){
                 price=180;
-            }
+            }*/
 
             int arrayNum1;
-            String seatNoStr = String.valueOf(seatNumber);
-            String fileName = rowLetter + seatNoStr +  ".txt";
+            //String seatNoStr = String.valueOf(seatNumber);
+            //String fileName = rowLetter + seatNoStr +  ".txt";
             if(rowLetter.equals("A") || rowLetter.equals("B") || rowLetter.equals("C") || rowLetter.equals("D")){
+                System.out.println("Enter the seat number :");
+
+                int seatNumber = buySeatIn.nextInt();
+
+                if(seatNumber<6){
+                    price=200;
+                } else if (seatNumber<10) {
+                    price=150;
+                }
+                else if(seatNumber<15){
+                    price=180;
+                }
+                String seatNoStr = String.valueOf(seatNumber);
+                String fileName = rowLetter + seatNoStr +  ".txt";
                 switch (rowLetter){
                     case "A":
                         arrayNum1 = 0;
 
-                        checkSeatBuy(arrayNum1,seatNumber,price,rowLetter);
-                        addTicketFile(fileName,ticketArrayA,seatNumber);
+                        checkSeatBuy(arrayNum1,seatNumber,price,rowLetter,fileName,ticketArrayA);
+                        //addTicketFile(fileName,ticketArrayA,seatNumber);
                         break;
 
                     case "B":
                         arrayNum1 = 1;
-                        checkSeatBuy(arrayNum1,seatNumber,price,rowLetter);
-                        addTicketFile(fileName,ticketArrayB,seatNumber);
+                        checkSeatBuy(arrayNum1,seatNumber,price,rowLetter,fileName,ticketArrayB);
+                        //addTicketFile(fileName,ticketArrayB,seatNumber);
                         break;
                     case "C":
                         arrayNum1 = 2;
-                        checkSeatBuy(arrayNum1,seatNumber,price,rowLetter);
-                        addTicketFile(fileName,ticketArrayC,seatNumber);
+                        checkSeatBuy(arrayNum1,seatNumber,price,rowLetter,fileName,ticketArrayC);
+                        //addTicketFile(fileName,ticketArrayC,seatNumber);
                         break;
                     case "D":
                         arrayNum1 = 3;
-                        checkSeatBuy(arrayNum1,seatNumber,price,rowLetter);
-                        addTicketFile(fileName,ticketArrayD,seatNumber);
+                        checkSeatBuy(arrayNum1,seatNumber,price,rowLetter,fileName,ticketArrayD);
+                        //addTicketFile(fileName,ticketArrayD,seatNumber);
                         break;
 
                 }
@@ -132,31 +146,38 @@ public class PlaneManagement {
             System.out.println("Enter the row letter :");
             String rowLetter = cancelSeatIn.nextLine().toUpperCase();
 
-            System.out.println("Enter the seat number :");
+            /*System.out.println("Enter the seat number :");
 
             int seatNumber = cancelSeatIn.nextInt();
-            int arrayNum1;
+
             String seatNoStr = String.valueOf(seatNumber);
-            String fileName = rowLetter + seatNoStr +  ".txt";
+            String fileName = rowLetter + seatNoStr +  ".txt";*/
+            int arrayNum1;
             if(rowLetter.equals("A") || rowLetter.equals("B") || rowLetter.equals("C") || rowLetter.equals("D")){
+                System.out.println("Enter the seat number :");
+
+                int seatNumber = cancelSeatIn.nextInt();
+                String seatNoStr = String.valueOf(seatNumber);
+                String fileName = rowLetter + seatNoStr +  ".txt";
+
                 switch (rowLetter){
                     case "A":
                         arrayNum1 = 0;
-                        checkSeatCancel(arrayNum1,seatNumber,rowLetter);
-                        deleteTicketFile(fileName);
+                        checkSeatCancel(arrayNum1,seatNumber,rowLetter,fileName);
+                        //deleteTicketFile(fileName);
                         break;
 
                     case "B":
                         arrayNum1 = 1;
-                        checkSeatCancel(arrayNum1,seatNumber,rowLetter);
+                        checkSeatCancel(arrayNum1,seatNumber,rowLetter,fileName);
                         break;
                     case "C":
                         arrayNum1 = 2;
-                        checkSeatCancel(arrayNum1,seatNumber,rowLetter);
+                        checkSeatCancel(arrayNum1,seatNumber,rowLetter,fileName);
                         break;
                     case "D":
                         arrayNum1 = 3;
-                        checkSeatCancel(arrayNum1,seatNumber,rowLetter);
+                        checkSeatCancel(arrayNum1,seatNumber,rowLetter,fileName);
                         break;
 
                 }
@@ -331,7 +352,7 @@ public class PlaneManagement {
 
 
     }
-    public static void checkSeatBuy(int arrayNum1,int seatNumber,double price,String rowLetter){
+    public static void checkSeatBuy(int arrayNum1,int seatNumber,double price,String rowLetter,String fileName,Ticket[] ticketArray){
         try {
 
             if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
@@ -340,6 +361,7 @@ public class PlaneManagement {
                 seatReservation[arrayNum1][seatNumber - 1] = "X";
                 setTicketDetails(price,rowLetter,seatNumber);
 
+                addTicketFile(fileName,ticketArray,seatNumber);
 
                 //System.out.println(seatReservation[arrayNum1][seatNumber - 1]);
 
@@ -352,7 +374,7 @@ public class PlaneManagement {
         }
 
     }
-    public static void checkSeatCancel(int arrayNum1,int seatNumber,String rowLetter){
+    public static void checkSeatCancel(int arrayNum1,int seatNumber,String rowLetter,String fileName){
         try {
 
             if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
@@ -366,15 +388,19 @@ public class PlaneManagement {
                 switch (rowLetter){
                     case "A":
                         ticketArrayA[arrayValue] = cancelTicket;
+                        deleteTicketFile(fileName);
                         break;
                     case "B":
                         ticketArrayB[arrayValue] = cancelTicket;
+                        deleteTicketFile(fileName);
                         break;
                     case "C":
                         ticketArrayC[arrayValue] = cancelTicket;
+                        deleteTicketFile(fileName);
                         break;
                     case "D":
                         ticketArrayD[arrayValue] = cancelTicket;
+                        deleteTicketFile(fileName);
                         break;
                 }
                 //System.out.println(ticketArrayD[arrayValue].getPrice());
