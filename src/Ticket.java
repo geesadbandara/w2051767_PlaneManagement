@@ -1,8 +1,12 @@
 public class Ticket {
-    String row,name,surname,email;
-    int seatNo;
-    double price;
-    Person ticketOwner = new Person(name,surname,email);
+    private String row,name,surname,email;
+    private int seatNo;
+    private double price;
+    private Person ticketOwner = new Person(name,surname,email);
+
+    public Ticket(){
+
+    }
     public Ticket(String row,int seatNo,double price,Person ticketOwner){
         this.row = row;
         this.seatNo = seatNo;

@@ -8,54 +8,67 @@ public class PlaneManagement {
     protected static Ticket[] ticketArrayD = new Ticket[14];
 
     public static void main(String[] args){
-        Scanner userInput = new Scanner(System.in);
+        while(true) {
+            try {
+                Scanner userInput = new Scanner(System.in);
 
-        boolean status = true;
+                boolean status = true;
 
 
-        int userSelection;
-        while(status){ //status=true
+                int userSelection;
+                while (status) { //status=true
 
-        System.out.println("Welcome to Plane Management System");
-        System.out.println("*****************************************************");
-        System.out.println("*                 MENU OPTION                       *");
-        System.out.println("*****************************************************");
-        String[] menuOptions = {"1)Buy Seat","2)Cancel a Seat","3)Find first available seat","4)Show seating plan","5)Print ticket information and total sales","6)Search ticket","0)Buy Seat"};
-        for(String menu:menuOptions){
-            System.out.println("        " +menu);
+                    System.out.println("Welcome to Plane Management System");
+                    System.out.println("*****************************************************");
+                    System.out.println("*                 MENU OPTION                       *");
+                    System.out.println("*****************************************************");
+                    String[] menuOptions = {"1)Buy Seat", "2)Cancel a Seat", "3)Find first available seat", "4)Show seating plan", "5)Print ticket information and total sales", "6)Search ticket", "0)Buy Seat"};
+                    for (String menu : menuOptions) {
+                        System.out.println("        " + menu);
+                    }
+                    System.out.println("*****************************************************");
+
+                    System.out.println("Please select an option:");
+
+                    userSelection = userInput.nextInt();
+                    switch (userSelection) {
+                        case 1:
+                            System.out.println("Buy a seat");
+                            buy_seat();
+                            break;
+                        case 2:
+                            System.out.println("Cancel Seat");
+                            cancel_seat();
+                            break;
+                        case 3:
+                            find_first_available();
+                            break;
+                        case 4:
+                            show_seating_plan();
+                            break;
+                        case 5:
+                            print_ticket_info();
+                            break;
+                        case 6:
+                            search_ticket();
+                            break;
+                        case 0:
+                            System.out.println("Quit");
+                            status = false;
+                            break;
+                        default:
+                            System.out.println("Invalid option");
+                    }
+
+
+                }
+                break;
+
+
+            } catch (InputMismatchException a) {
+                System.out.println("Please, enter a integer next time !");
+            }
         }
-        System.out.println("*****************************************************");
-
-        System.out.println("Please select an option:");
-
-        userSelection = userInput.nextInt();
-         switch (userSelection) {
-             case 1:
-                 System.out.println("Buy a seat");
-                 buy_seat();
-                 break;
-             case 2:
-                 System.out.println("Cancel Seat");
-                 cancel_seat();
-                 break;
-             case 3:
-                 find_first_available();
-                 break;
-             case 4:
-                 show_seating_plan();
-                 break;
-             case 5:
-                 print_ticket_info();
-                 break;
-             case 6:
-                 search_ticket();
-                 break;
-             case 0:
-                 System.out.println("Quit");
-                 status=false;
-                 break;
-         }
-         }
 
 
 
@@ -132,8 +145,7 @@ public class PlaneManagement {
 
         }
         catch (InputMismatchException e){
-            System.out.println("First Input the Row Letter,It should be a character (A/B/C/D)");
-            System.out.println("Then Input the Seat Number,It should be a integer");
+            System.out.println("Input the Seat Number,It should be an integer");
         }
 
 
@@ -189,8 +201,7 @@ public class PlaneManagement {
 
         }
         catch (InputMismatchException e){
-            System.out.println("First Input the Row Letter,It should be a character (A/B/C/D)");
-            System.out.println("Then Input the Seat Number,It should be a integer");
+            System.out.println("Input the Seat Number,It should be a integer");
         }
 
 
@@ -313,8 +324,10 @@ public class PlaneManagement {
             try{
                 System.out.println("Enter the email address: ");
                 emailIn  = userIn.next();
+                //System.out.println(((emailIn.contains("@")) && (emailIn.contains("."))));
+                //System.out.println(((emailIn.matches("[a-zA-Z]+")) || (emailIn.matches("[0-9]+"))));
                 //String name = new String(nameIn);
-                if((emailIn.contains("@")) && (emailIn.contains(".")) || ((emailIn.matches("[a-zA-Z]+")) || (emailIn.matches("[0-9]+")))){
+                if(((emailIn.contains("@")) && (emailIn.contains("."))) && (!((emailIn.matches("[a-zA-Z]+")) || (emailIn.matches("[0-9]+"))))){
                     System.out.println("Valid");
                     break;
                 }
@@ -384,7 +397,7 @@ public class PlaneManagement {
                 System.out.println("Not Available");
                 seatReservation[arrayNum1][seatNumber - 1] = "O";
                 int arrayValue = seatNumber - 1;
-                Ticket cancelTicket=new Ticket(null,0,0,null);
+                Ticket cancelTicket=new Ticket();
                 switch (rowLetter){
                     case "A":
                         ticketArrayA[arrayValue] = cancelTicket;
@@ -438,11 +451,15 @@ public class PlaneManagement {
         while(arrayValue<count){
             arrayValue++;
             try{
-                System.out.println("Seat: "+ticketArray[arrayValue].getRow() + ticketArray[arrayValue].getSeatNo());
-                ticketArray[arrayValue].getTicketOwner().showPersonDetails();
-                System.out.println("Price: Є."+ticketArray[arrayValue].getPrice());
-                System.out.println("*****************************************");
-                totalPrice = totalPrice + ticketArray[arrayValue].getPrice();
+                if(!((ticketArray[arrayValue].getRow()).equals(null))){
+                    System.out.println("Seat: "+ticketArray[arrayValue].getRow() + ticketArray[arrayValue].getSeatNo());
+                    ticketArray[arrayValue].getTicketOwner().showPersonDetails();
+                    System.out.println("Price: Є."+ticketArray[arrayValue].getPrice());
+                    System.out.println("*****************************************");
+                    totalPrice = totalPrice + ticketArray[arrayValue].getPrice();
+
+                }
+
 
 
             }
@@ -461,32 +478,36 @@ public class PlaneManagement {
             System.out.println("Enter the row letter :");
             String rowLetter = buySeatIn.nextLine().toUpperCase();
 
-            System.out.println("Enter the seat number :");
-
-            int seatNumber = buySeatIn.nextInt();
-
-
             int arrayNum1;
             if(rowLetter.equals("A") || rowLetter.equals("B") || rowLetter.equals("C") || rowLetter.equals("D")){
-                switch (rowLetter){
-                    case "A":
-                        arrayNum1 = 0;
-                        checkSeat(arrayNum1,seatNumber,rowLetter);
-                        break;
+                try{
+                    System.out.println("Enter the seat number :");
+                    int seatNumber = buySeatIn.nextInt();
 
-                    case "B":
-                        arrayNum1 = 1;
-                        checkSeat(arrayNum1,seatNumber,rowLetter);
-                        break;
-                    case "C":
-                        arrayNum1 = 2;
-                        checkSeat(arrayNum1,seatNumber,rowLetter);
-                        break;
-                    case "D":
-                        arrayNum1 = 3;
-                        checkSeat(arrayNum1,seatNumber,rowLetter);
-                        break;
+                    switch (rowLetter){
+                        case "A":
+                            arrayNum1 = 0;
+                            checkSeat(arrayNum1,seatNumber,rowLetter);
+                            break;
 
+                        case "B":
+                            arrayNum1 = 1;
+                            checkSeat(arrayNum1,seatNumber,rowLetter);
+                            break;
+                        case "C":
+                            arrayNum1 = 2;
+                            checkSeat(arrayNum1,seatNumber,rowLetter);
+                            break;
+                        case "D":
+                            arrayNum1 = 3;
+                            checkSeat(arrayNum1,seatNumber,rowLetter);
+                            break;
+
+                    }
+
+                }
+                catch(InputMismatchException a){
+                    System.out.println("Input the Seat Number,It should be a integer");
                 }
             }
             else{
@@ -496,8 +517,8 @@ public class PlaneManagement {
 
         }
         catch (InputMismatchException e){
-            System.out.println("First Input the Row Letter,It should be a character (A/B/C/D)");
-            System.out.println("Then Input the Seat Number,It should be a integer");
+            System.out.println("Input the Row Letter,It should be a character (A/B/C/D)");
+
         }
 
     }

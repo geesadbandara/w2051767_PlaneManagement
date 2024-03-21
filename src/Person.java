@@ -1,5 +1,9 @@
 public class Person {
-    String name, surname,email;
+    private String name, surname,email;
+
+    public Person(){
+
+    }
     public Person(String name, String surname,String email){
         this.name = name;
         this.surname = surname;
