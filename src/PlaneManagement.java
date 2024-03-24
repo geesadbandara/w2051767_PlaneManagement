@@ -141,14 +141,16 @@ public class PlaneManagement {
                                             }
 
                                         } catch (InputMismatchException e) {
-                                            System.out.println("First Enter a valid row letter! (A/B/C/D) then Input the Seat Number,It should be an integer");
-                                            //break;
+                                            System.out.println("Input the Seat Number,It should be an integer");
+                                            String unwanted = buySeatIn.nextLine();
+                                            continue;
                                         }
-                                        break;
+
+
                                     }
                                 } else {
                                     System.out.println("Enter a valid row letter!  (A/B/C/D)");
-                                    break;
+
                                 }
 
 
@@ -192,7 +194,7 @@ public class PlaneManagement {
                                 System.out.println("Enter the seat number :");
 
                                 seatNumber = cancelSeatIn.nextInt();
-                                System.out.println(seatNumber);
+                                //System.out.println(seatNumber);
                                 String seatNoStr = String.valueOf(seatNumber);
                                 String fileName = rowLetter + seatNoStr + ".txt";
 
@@ -221,10 +223,10 @@ public class PlaneManagement {
                                         break;
                                 }
                             } catch (InputMismatchException e) {
-                                System.out.println("First Enter a valid row letter! (A/B/C/D) then Input the Seat Number,It should be an integer");
-
+                                System.out.println("Input the Seat Number,It should be an integer");
+                                String unwanted = cancelSeatIn.nextLine();
                             }
-                            break;
+                            //break;
                         }
                         } else {
                             System.out.println("Enter a valid row letter!  (A/B/C/D)");
@@ -557,9 +559,10 @@ public class PlaneManagement {
                             }
 
                         } catch (InputMismatchException a) {
-                            System.out.println("First Enter a valid row letter! (A/B/C/D) then Input the Seat Number,It should be an integer");
+                            System.out.println("Input the Seat Number,It should be an integer");
+                            String unwanted = buySeatIn.nextLine();
                         }
-                        break;
+
                     }
                 } else {
                     System.out.println("Enter a valid row letter!  (A/B/C/D)");
