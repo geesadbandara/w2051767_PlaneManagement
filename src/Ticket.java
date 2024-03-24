@@ -1,3 +1,7 @@
+//Name:Geesad Bandara
+//UOW: W20517670
+//IIT : 20230782
+//References : https://www.geeksforgeeks.org/java/ , https://www.javatpoint.com/ and https://www.w3schools.com/java/
 public class Ticket {
     private String row,name,surname,email;
     private int seatNo;
@@ -13,6 +17,7 @@ public class Ticket {
         this.price = price;
         this.ticketOwner = ticketOwner;
     }
+    //getters and setters
 
     public void setTicketOwner(Person ticketOwner) {
         this.ticketOwner = ticketOwner;

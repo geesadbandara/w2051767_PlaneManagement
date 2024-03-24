@@ -6,7 +6,7 @@ import java.util.*;
 import java.io.*;
 //imported java.util and java.io packages
 public class PlaneManagement {
-    protected static String[][] seatReservation = {{"X","O","O","O","O","O","O","O","O","O","O","O","O","O"},{"O","O","O","X","X","X","X","X","X","X","X","O"},{"X","X","X","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X","X","X"}};
+    protected static String[][] seatReservation = {{"O","O","O","O","O","O","O","O","O","O","O","O","O","O"},{"O","O","O","O","O","O","O","O","O","O","O","O"},{"O","O","O","O","O","O","O","O","O","O","O","O"},{"O","O","O","O","O","O","O","O","O","O","O","O","O","O"}};
     protected static Ticket[] ticketArrayA = new Ticket[14];
     protected static Ticket[] ticketArrayB = new Ticket[12];
     protected static Ticket[] ticketArrayC = new Ticket[12];
@@ -36,7 +36,10 @@ public class PlaneManagement {
 
                     System.out.println("Please select an option:");
 
-                    userSelection = userInput.nextInt();
+                    //userSelection = userInput.nextInt();
+                    String userSelectionString = userInput.nextLine();
+                    userSelection = Integer.parseInt(userSelectionString);
+
                     switch (userSelection) {
                         case 1:
                             System.out.println("Buy a seat");
@@ -72,6 +75,9 @@ public class PlaneManagement {
 
 
             } catch (InputMismatchException a) {
+                System.out.println("Please, enter a integer next time !");
+            }
+            catch (NumberFormatException e){
                 System.out.println("Please, enter a integer next time !");
             }
         }
@@ -398,7 +404,7 @@ public class PlaneManagement {
                 ticketArrayD[arrayValue] = buyTicket;
                 break;
         }
-
+        System.out.println("Ticket Booked Successfully !");
 
     }
     //checkSeatBuy method invokes setTicketDetails and addTicketFile method with their parameters
@@ -485,7 +491,7 @@ public class PlaneManagement {
                 totalPrice = printTicketSearch(13,ticketArrayD,totalPrice);
             }
         }
-        System.out.println("Total Price:" +totalPrice);
+        System.out.println("Total Price: Є." +totalPrice);
 
     }
 
@@ -630,7 +636,8 @@ public class PlaneManagement {
 
 
     }
-    //this method displays the details of a single ticket by calling ticket objects from ticket array
+    //this method writes the info of the ticket into txt files
+
     public static void addTicketFile(String fileName,Ticket[] ticketArray,int seatNo){
         try{
             File ticketFile = new File(fileName);
@@ -640,7 +647,7 @@ public class PlaneManagement {
                 ticketWriter.write("\nName: "+ticketArray[seatNo-1].getTicketOwner().getName());
                 ticketWriter.write("\nSurname: "+ticketArray[seatNo-1].getTicketOwner().getSurname());
                 ticketWriter.write("\nEmail: "+ticketArray[seatNo-1].getTicketOwner().getEmail());
-                ticketWriter.write("\nPrice: "+ticketArray[seatNo-1].getPrice());
+                ticketWriter.write("\nPrice: Є."+ticketArray[seatNo-1].getPrice());
                 ticketWriter.close();
         }
         catch(IOException e){
