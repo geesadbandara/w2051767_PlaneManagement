@@ -1,5 +1,10 @@
+//Name:Geesad Bandara
+//UOW: W20517670
+//IIT : 20230782
+//References : https://www.geeksforgeeks.org/java/ , https://www.javatpoint.com/ and https://www.w3schools.com/java/
 import java.util.*;
 import java.io.*;
+//imported java.util and java.io packages
 public class PlaneManagement {
     protected static String[][] seatReservation = {{"X","O","O","O","O","O","O","O","O","O","O","O","O","O"},{"O","O","O","X","X","X","X","X","X","X","X","O"},{"X","X","X","X","X","X","X","X","X","X","X","X"},{"X","X","X","X","X","X","X","X","X","X","X","X","X","X"}};
     protected static Ticket[] ticketArrayA = new Ticket[14];
@@ -7,6 +12,7 @@ public class PlaneManagement {
     protected static Ticket[] ticketArrayC = new Ticket[12];
     protected static Ticket[] ticketArrayD = new Ticket[14];
 
+    //1 2-dimensional array for seats and 4 , 1-dimensional array for tickets
     public static void main(String[] args){
         while(true) {
             try {
@@ -73,6 +79,9 @@ public class PlaneManagement {
 
 
     }
+    //buy seat invokes checkSeatBuy method with args arrayNum1, seatNumber, price, rowLetter, fileName, ticketArrayA
+    //Assumption : Assume that user doesn't have an idea about the seating plan, Because of that thinks user hit 0 or 15 as seat number it automatically
+    //redirects to main by assuming the user need to see the seating plan or the find the first seat.
     public static void buy_seat(){
         boolean status = false;
         while(status==false) {
@@ -84,21 +93,7 @@ public class PlaneManagement {
                     System.out.println("Enter the row letter :");
                     String rowLetter = buySeatIn.nextLine().toUpperCase();
 
-                    //System.out.println("Enter the seat number :");
-
-                    //int seatNumber = buySeatIn.nextInt();
-
-            /*if(seatNumber<6){
-                price=200;
-            } else if (seatNumber<10) {
-                price=150;
-            }
-            else if(seatNumber<15){
-                price=180;
-            }*/
                         int arrayNum1;
-                        //String seatNoStr = String.valueOf(seatNumber);
-                        //String fileName = rowLetter + seatNoStr +  ".txt";
                                 if (rowLetter.equals("A") || rowLetter.equals("B") || rowLetter.equals("C") || rowLetter.equals("D")) {
                                     while(status==false) {
                                         try {
@@ -170,6 +165,8 @@ public class PlaneManagement {
 
 
     }
+    //Assumption : Assume that user doesn't have an idea about the seating plan, Because of that thinks user hit 0 or 15 as seat number it automatically
+    //redirects to main by assuming the user need to see the seating plan or the find the first seat.
     public static void cancel_seat(){
         boolean status = false;
         while(status==false) {
@@ -243,7 +240,7 @@ public class PlaneManagement {
 
 
     }
-    
+    //this method uses the linear search algorithm with enhanced for-loop to find the first seat that is available
     public static void find_first_available(){
         int[] rowChange = {0,1,2,3,4};
         boolean notFound = true;
@@ -295,6 +292,7 @@ public class PlaneManagement {
 
         }
     }
+    //prints the seating plan with enhanced for loop to change the y values of the 2d-array while traversing it
     public static void show_seating_plan(){
         int[] rowChange = {0,1,2,3};
         for(int row: rowChange) {
@@ -313,6 +311,7 @@ public class PlaneManagement {
         }
 
     }
+
     public static void setTicketDetails(double setPrice,String setRow, int setSeatNo){
         String nameIn,surnameIn,emailIn;
         Scanner userIn = new Scanner(System.in);
@@ -378,7 +377,7 @@ public class PlaneManagement {
             }
 
         }
-        //System.out.println(price);
+        //creates the person object and pass that object into Ticket object named buyTicket
         Person ticketOwner = new Person(nameIn,surnameIn,emailIn);
         Ticket buyTicket = new Ticket(setRow,setSeatNo,setPrice,ticketOwner);
 
@@ -397,22 +396,23 @@ public class PlaneManagement {
                 ticketArrayD[arrayValue] = buyTicket;
                 break;
         }
-        //System.out.println(ticketArrayA[arrayValue].getTicketOwner().getEmail());
 
 
     }
+    //checkSeatBuy method invokes setTicketDetails and addTicketFile method with their parameters
+    //method is static because it was invoked inside the class
     public static void checkSeatBuy(int arrayNum1,int seatNumber,double price,String rowLetter,String fileName,Ticket[] ticketArray){
         try {
+            //seatReservation array was used here
 
             if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
-                //String nameIn,surnameIn,emailIn;
+
                 System.out.println("This Seat is Available to buy");
                 seatReservation[arrayNum1][seatNumber - 1] = "X";
+
                 setTicketDetails(price,rowLetter,seatNumber);
 
                 addTicketFile(fileName,ticketArray,seatNumber);
-
-                //System.out.println(seatReservation[arrayNum1][seatNumber - 1]);
 
             } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
                 System.out.println("This Seat is Not Available");
@@ -423,6 +423,9 @@ public class PlaneManagement {
         }
 
     }
+    //this method checks whether the seat is available or booked under cancel seat
+    //if the seat is not available then this method invoked the deleteTicketFile after a prompt
+    //or else it will print that this seat is available
     public static void checkSeatCancel(int arrayNum1,int seatNumber,String rowLetter,String fileName){
         try {
 
@@ -462,6 +465,7 @@ public class PlaneManagement {
         }
 
     }
+    //print ticket information, this method invokes the printTicketSearch
     public static void print_ticket_info(){
         int[] rowChange = {0,1,2,3};
         double totalPrice = 0;
@@ -482,6 +486,8 @@ public class PlaneManagement {
         System.out.println("Total Price:" +totalPrice);
 
     }
+
+    //print the details of the search
     public static double printTicketSearch(int count,Ticket[] ticketArray,double totalPrice){
         int arrayValue=-1;
         while(arrayValue<count){
@@ -506,6 +512,8 @@ public class PlaneManagement {
         return totalPrice;
 
     }
+    //Assumption : Assume that user doesn't have an idea about the seating plan, Because of that thinks user hit 0 or 15 as seat number it automatically
+    //redirects to main by assuming the user need to see the seating plan or the find the first seat.
     public static void search_ticket(){
         boolean status = false;
         try {
@@ -566,14 +574,16 @@ public class PlaneManagement {
         }
 
     }
+    //this method use to check whether seat is booked or not
+    //if its booked this method invokes the printSingleTicket method
     public static void checkSeat(int arrayNum1,int seatNumber,String rowLetter){
         try {
 
             if (seatReservation[arrayNum1][seatNumber - 1].equals("O")) {
-                //String nameIn,surnameIn,emailIn;
+
                 System.out.println("This seat is available to buy");
 
-                //System.out.println(seatReservation[arrayNum1][seatNumber - 1]);
+
 
             } else if (seatReservation[arrayNum1][seatNumber - 1].equals("X")) {
                 System.out.println("This is seat is not available to buy");
@@ -601,6 +611,7 @@ public class PlaneManagement {
         }
 
     }
+    //printSingleTicket uses to call the info from the objects in the ticketArrays
     public static void printSingleTicket(Ticket[] ticketArray,int arrayValue){
         try{
             System.out.println("*****************************************");
@@ -616,6 +627,7 @@ public class PlaneManagement {
 
 
     }
+    //this method displays the details of a single ticket by calling ticket objects from ticket array
     public static void addTicketFile(String fileName,Ticket[] ticketArray,int seatNo){
         try{
             File ticketFile = new File(fileName);
@@ -634,6 +646,7 @@ public class PlaneManagement {
         }
 
     }
+    //this method use to delete the ticket txt files after cancel seats
     public static void deleteTicketFile(String fileName){
         try{
             File ticketFile = new File(fileName);
